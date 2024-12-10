@@ -16,6 +16,8 @@ db.all('SELECT * FROM USERS', (err, rows) => {
     } else {
         // Annars, skicka data
         res.status(200).send(rows);
+
+        //Test
     }
 });
 });
