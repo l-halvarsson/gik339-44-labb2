@@ -1,11 +1,11 @@
 const express = require('express');
 const server = express();
-
 const sqlite3 = require('sqlite3').verbose();
 
 
 
 server.get("/users", (req,res) => {
+    
 
 const db = new sqlite3.Database('./gik339-labb2.db');
 
