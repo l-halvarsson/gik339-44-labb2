@@ -1,4 +1,4 @@
-fetch('http://localhost:3000/users') 
+fetch('http://localhost:3000/users')
     .then((response) => {
         console.log(response); // Logga hela responsen för att säkerställa att det fungerar
         return response.json(); // Översätt svaret till JSON
@@ -6,15 +6,30 @@ fetch('http://localhost:3000/users')
     .then((users) => {
         console.log('Parsed users:', users); // Logga den parsade JSON-datan
 
+
         // Skapa en oordnad lista (<ul>)
         const ul = document.createElement('ul');
+        ul.className = "max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden"; // Tailwind-klasser för listans container
+
 
         // Iterera över varje användarobjekt i listan
         users.forEach((user) => {
             const li = document.createElement('li');
-            li.innerHTML = `${user.firstName} ${user.lastName} (${user.username})`; // Skriv ut användarens namn och användarnamn
+            li.innerHTML = `Förnamn: ${user.firstName} Efternamn: ${user.lastName} <br>
+            Användarnamn: ${user.username}`; // Skriv ut användarens namn och användarnamn
+           
+            li.className = "flex justify-between items-center border-b border-gray-200 px-4 py-2 font-poppins";
+
+
+            // Gör textfärgen beroende på user.color (från data)
+            if (user.color) {
+                li.style.backgroundColor = user.color;
+            }
+
+
             ul.appendChild(li); // Lägg till listpunkten i listan
         });
+
 
         // Lägg till listan i body
         document.body.appendChild(ul);
@@ -22,6 +37,8 @@ fetch('http://localhost:3000/users')
     .catch((error) => {
         console.error('Error fetching users:', error); // Hantera eventuella fel
     });
+
+
 
     //.then((response) => response.json()) 
     //.then((users) => {
