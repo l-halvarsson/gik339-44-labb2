@@ -9,50 +9,43 @@ fetch('http://localhost:3000/users')
 
         // Skapa en oordnad lista (<ul>)
         const ul = document.createElement('ul');
-        ul.className = "max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden"; // Tailwind-klasser för listans container
+        // Tailwind-klasser för listans container
+        ul.className = "max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden";
 
 
         // Iterera över varje användarobjekt i listan
         users.forEach((user) => {
+            // Skapa en <li> för varje användare
             const li = document.createElement('li');
-            li.innerHTML = `Förnamn: ${user.firstName} Efternamn: ${user.lastName} <br>
-            Användarnamn: ${user.username}`; // Skriv ut användarens namn och användarnamn
-           
-            li.className = "flex justify-between items-center border-b border-gray-200 px-4 py-2 font-poppins";
+            li.className = "p-4 flex flex-col space-y-2 rounded-md text-black border border-gray-300"; // Tailwind-styling 
 
-
-            // Gör textfärgen beroende på user.color (från data)
+            // Använd if-satsen för att sätta bakgrundsfärg på <li>
             if (user.color) {
-                li.style.backgroundColor = user.color;
+                li.style.backgroundColor = user.color; // Sätt färgen direkt på <li>
             }
 
+            // Skapa en rubrik för fullständigt namn
+            const nameHeader = document.createElement('h3');
+            nameHeader.className = "text-lg font-semibold";
+            nameHeader.textContent = `Namn: ${user.firstName} ${user.lastName}`;
 
-            ul.appendChild(li); // Lägg till listpunkten i listan
+            // Skapa en paragraf för användarnamn
+            const usernameParagraph = document.createElement('p');
+            usernameParagraph.className = "text-sm";
+            usernameParagraph.textContent = `Användarnamn: ${user.username}`;
+
+            // Lägg till de skapade elementen i <li>
+            li.appendChild(nameHeader);
+            li.appendChild(usernameParagraph);
+            
+            // Lägg till <li> i <ul>
+            ul.appendChild(li); 
         });
 
-
-        // Lägg till listan i body
+        // Lägg till listan i DOM:en (body)
         document.body.appendChild(ul);
     })
+    // Logga eventuella fel vid hämtning
     .catch((error) => {
-        console.error('Error fetching users:', error); // Hantera eventuella fel
+        console.error('Error fetching users:', error);
     });
-
-
-
-    //.then((response) => response.json()) 
-    //.then((users) => {
-      //  console.log(users);
-        //const ul = document.createElement('ul');
-        //users.forEach((users) =>{
-            //const li = document.createElement('li');
-            //li.innerHTML = user.firstName;
-            //ul.append(li);
-        
-        //});
-        
-        //document.body.append(ul);
-        //hej
-    
-        
-    //});
